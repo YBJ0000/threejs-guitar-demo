@@ -8,7 +8,7 @@ scene.background = new THREE.Color(0x1a1a1a);
 
 // Camera setup
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(10, 10, -10);  // 将 y 值（第二个参数）改为正值，让相机在上方
+camera.position.set(100, 100, -100);  // 将 y 值（第二个参数）改为正值，让相机在上方
 
 // Renderer setup
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -36,8 +36,8 @@ scene.add(fillLight);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
-controls.minDistance = 600;    // 改小这个值可以让相机更靠近模型
-controls.maxDistance = 10000;  // 改大这个值可以让相机离模型更远
+controls.minDistance = 500;    // 改小这个值可以让相机更靠近模型
+controls.maxDistance = 800;  // 改大这个值可以让相机离模型更远
 
 // Load the GLTF model
 const loader = new GLTFLoader();
@@ -45,14 +45,24 @@ loader.load(
   '/guitar_strandberg/scene.gltf',
   function (gltf) {
     const model = gltf.scene;
-    // Scale and position the model appropriately
     model.scale.set(2, 2, 2);
     model.position.set(0, 0, 0);
     model.rotation.set(0, Math.PI, 0);
 
-    // Enable shadows for the model
+    // 创建红色材质
+    const bodyMaterial = new THREE.MeshStandardMaterial({ 
+      color: 0x8B0000,  // 深红色
+      roughness: 0.5,
+      metalness: 0.3
+    });
+
+    // 遍历模型
     model.traverse((node) => {
       if (node.isMesh) {
+        // 只对木质主体部分应用红色
+        if (node.name === 'Cube_Wood_-_body_0') {
+          node.material = bodyMaterial;
+        }
         node.castShadow = true;
         node.receiveShadow = true;
       }
