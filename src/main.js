@@ -8,7 +8,7 @@ scene.background = new THREE.Color(0x1a1a1a);
 
 // Camera setup
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(100, 100, -100);  // 将 y 值（第二个参数）改为正值，让相机在上方
+camera.position.set(800, 1800, -500);  // 将 y 值（第二个参数）改为正值，让相机在上方
 
 // Renderer setup
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -36,7 +36,7 @@ scene.add(fillLight);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
-controls.minDistance = 500;    // 改小这个值可以让相机更靠近模型
+controls.minDistance = 400;    // 改小这个值可以让相机更靠近模型
 controls.maxDistance = 800;  // 改大这个值可以让相机离模型更远
 
 // Load the GLTF model
