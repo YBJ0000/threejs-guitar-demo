@@ -71,7 +71,9 @@ loader.load(
     scene.add(model);
   },
   function (xhr) {
-    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+    // 修改加载进度的计算方式
+    const progress = Math.min((xhr.loaded / xhr.total) * 100, 100);
+    console.log(progress.toFixed(2) + '% loaded');
   },
   function (error) {
     console.error('An error happened:', error);
