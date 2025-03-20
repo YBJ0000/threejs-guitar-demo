@@ -69,14 +69,18 @@ loader.load(
     });
 
     scene.add(model);
+    
+    // 隐藏 loading 屏幕
+    document.querySelector('.loading-screen').style.display = 'none';
   },
   function (xhr) {
-    // 修改加载进度的计算方式
     const progress = Math.min((xhr.loaded / xhr.total) * 100, 100);
     console.log(progress.toFixed(2) + '% loaded');
   },
   function (error) {
     console.error('An error happened:', error);
+    // 发生错误时也隐藏 loading 并显示错误信息
+    document.querySelector('.loading-screen').textContent = 'Error loading model';
   }
 );
 
